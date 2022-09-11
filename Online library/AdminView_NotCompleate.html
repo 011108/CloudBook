@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .tabs{
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .tabs li{
+        padding: 10px;
+        background-color: #f6f4f4;
+        border-right: 1px solid white;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .tabs .activ,
+      .tabs li:hover{
+        background-color: #ddd;
+      }
+      .content {
+        background-color: #ddd;
+      }
+      .content > div {
+        padding: 20px;
+      }
+      .content > div:not(:first-child) {
+        display: none;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <ul class="tabs">
+      <li class="activ" >tape1</li>
+      <li data->tape2</li>
+      <li data-cont=".three">tape3</li>
+    </ul>
+    <div class="content">
+      <div class="one">c1</div>
+      <div class="two">c2</div>
+      <div class="three">c3</div>
+    </div>
+    <script>
+      let tabs = document.querySelectorAll(".tabs li");
+      let tabsArray = Array.from(tabs);
+      let divs = document.querySelectorAll(".content > div");
+      let divsArray = Array.from(divs);
+      
+      tabsArray.forEach((ele)=> {
+        ele.addEventListener("click", Function(e){
+          tabsArray.forEach((ele) => {
+            ele.classList.remove("activ");
+          });
+          e.currentTarget.classList.add("activ");
+          divsArray.forEach((div)=> {
+            div.style.display ="none";
+          });
+          let sellectt = querySelector(e.currentTarget.dataset.cont);
+          document.sellectt.style.display ="block";
+        });
+      });
+    </script>
+  </body>
+  </html>
