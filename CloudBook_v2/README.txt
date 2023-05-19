@@ -1,1 +1,0 @@
-transfer the title & style var to the header file
