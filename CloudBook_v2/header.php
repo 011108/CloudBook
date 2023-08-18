@@ -47,17 +47,18 @@ if (isset($_SESSION['user_id'])) {
     $activ_user = $user->display_user($user_id);
     $ActivuserData = $user->display_user($userId); //in Book_Review & MyLiberary page it names like this
 }
-// becous of i cant pass variable of $title & $style with $_SESSION becous i need to chang the values every click
+// becous i can't pass variable of $title & $style with $_SESSION becous i need to chang the values every click
 $url = parse_url($_SERVER['REQUEST_URI']);
 $path = $url['path'];
 $components = explode('/', trim($path, '/')) ;
-
-if(isset($components[3])){
-    switch($components[3]){
+//print_r($components[4]);
+if(isset($components[4])){
+    switch($components[4]){
         case 'index.php':
             $title = 'Home';
             $style = 'main.css';
             break;
+       
         case 'Book_Review.php':
             $title = 'Book Review';
             $style = 'Book_Review_Style.css';
@@ -93,9 +94,12 @@ if(isset($components[3])){
             $style = 'Setting.css';
             break;
     }
-}
-//echo $title . "     " . $style;
+}else{
 
+    $title = 'Home';
+    $style = 'main.css';
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -109,15 +113,10 @@ if(isset($components[3])){
     <link rel="stylesheet" href="css/<?php echo $style ?>"/>
     <link rel="stylesheet" href="css/all.min.css"/>
     <link rel="stylesheet" href="css/bootstrap.rtl.min.css"/>
-    <!--google fonts-->
-    <!--bootstrap-->
 
+    <!-- Bootstrap CSS via CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <!--bootstrap-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;1,400&display=swap"
@@ -155,8 +154,8 @@ if(isset($components[3])){
         <a href="index.php" class="logo">Cloud Book</a>
 
         <div class="dropdown">
-            <button class=" lang btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">Dropdown button
+            <button class="lang btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                Languages
             </button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="?lang=Arabic">Arabic</a></li>
@@ -168,30 +167,25 @@ if(isset($components[3])){
             <ul class="main-nav">
                 <a style="color: white;" href="signIn.php"><?php echo lang('Sign In'); ?></a>
             </ul>
+            <?php }elseif(empty($user_id)||empty($userId)){?>
+                <a style="color: white;" href="signIn.php"><?php echo lang('Sign In'); ?></a>
+            <?php }else{ ?>
 
-        <?php }else{?>
             <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    <?php if (empty($user_id)||empty($userId)) {
-                        echo "Sign In";
-                    } else {
-                        echo "<img src='imgs/USER_IMGS/" . $activ_user['photo'] . "' class='rounded-circle' style='width:40px; height:40px;' >";
-                    } ?>
+                <button class="lang btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <?php
+                      echo "<img src='imgs/USER_IMGS/" . $activ_user['photo'] . "' class='rounded-circle' style='width:40px; height:40px;' >";
+                    ?>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <?php if (empty($user_id)) { ?>
-                        <a class="dropdown-item" href="signIn.php"><?php echo lang('Sign In'); ?></a>
-                    <?php } else { ?>
-                        <a class="dropdown-item" href="index.php"><?php echo lang('Home'); ?></a>
-                        <a class="dropdown-item" href="myAcount.php"><?php echo lang('My Account'); ?></a>
-                        <a class="dropdown-item" href="MyLibrary.php"><?php echo lang('Liberary'); ?></a>
-                        <a class="dropdown-item" href="user_setting.php"><?php echo lang('Settings'); ?></a>
-                        <a class="dropdown-item" href="signIn.php?logout=1"><?php echo lang('Log out'); ?></a>
-                    <?php } ?>
-                </div>
+                <ul class="dropdown-menu">
+                    <a class="dropdown-item" href="index.php"><?php echo lang('Home'); ?></a>
+                    <a class="dropdown-item" href="myAcount.php"><?php echo lang('My Account'); ?></a>
+                    <a class="dropdown-item" href="MyLibrary.php"><?php echo lang('Liberary'); ?></a>
+                    <a class="dropdown-item" href="user_setting.php"><?php echo lang('Settings'); ?></a>
+                    <a class="dropdown-item" href="signIn.php?logout=1"><?php echo lang('Log out'); ?></a>
+                </ul>
             </div>
-        <?php }?>
+        <?php  } ?>
     </div>
 </div>
 <!-- End Header -->

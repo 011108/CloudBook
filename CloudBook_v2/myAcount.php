@@ -79,7 +79,5 @@ $counReview = sizeof($result3);
 </div>
 <!--Start body-->
 <!-- Start Footer -->
-<?php require_once 'footer.php';?>
+<?php require_once 'footer.php'?>
 <!-- End Footer -->
-</body>
-</html>
