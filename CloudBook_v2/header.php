@@ -47,11 +47,12 @@ if (isset($_SESSION['user_id'])) {
     $activ_user = $user->display_user($user_id);
     $ActivuserData = $user->display_user($userId); //in Book_Review & MyLiberary page it names like this
 }
+
 // becous i can't pass variable of $title & $style with $_SESSION becous i need to chang the values every click
 $url = parse_url($_SERVER['REQUEST_URI']);
 $path = $url['path'];
 $components = explode('/', trim($path, '/')) ;
-//print_r($components[4]);
+
 if(isset($components[4])){
     switch($components[4]){
         case 'index.php':
